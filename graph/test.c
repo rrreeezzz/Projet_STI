@@ -2,6 +2,8 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 
+//test de modif par luc
+
 static void do_drawing(cairo_t *);
 
 struct {
