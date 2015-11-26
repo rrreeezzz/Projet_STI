@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE); // On quitte le programme
     }
 
-    ecran = SDL_SetVideoMode(CORDX, CORDY, 16, SDL_SWSURFACE); // On tente d'ouvrir une fenêtre
+    ecran = SDL_SetVideoMode(2000, 2000, 16, SDL_SWSURFACE); // On tente d'ouvrir une fenêtre
     if (ecran == NULL) { // Si l'ouverture a échoué, on le note et on arrête
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
   //  SDL_BlitSurface(rectangle, NULL, ecran, &position); // mettre la surface sur l'écran, à une position précise
 //
 
-
+    SDL_Flip(ecran);
     pause(); // Mise en pause du programme
 
 //LIBERATION SURFACE
