@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include "partie1.h"
 #include "partie2.h"
+#include <SDL/SDL_rotozoom.h>
 
 int main(int argc, char *argv[]) {
     FILE *fichier = NULL;
     Point **tabPt = NULL;
     SDL_Surface *ecran = NULL; // Le pointeur qui va stocker la surface de l'écran
     SDL_Surface *pixel = NULL; // Le pointeur qui va remplir la France
+    SDL_Surface *tempo = NULL; // Va accueillir la France temporairement
+    SDL_Surface *dezoom = NULL; // Va dezoomer la France avant de la mettre sur ecran
 
 
 //ALLOCATION MEMOIRE & OUVERTURE DU FICHIER
@@ -28,13 +31,16 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
+
 //CREATION ECRAN
     if (SDL_Init(SDL_INIT_VIDEO) == -1) { // Démarrage de la SDL. Si erreur :
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); // Écriture de l'erreur
         exit(EXIT_FAILURE); // On quitte le programme
     }
 
-    ecran = SDL_SetVideoMode(COLONNES, LIGNES, 16, SDL_HWSURFACE); // On tente d'ouvrir une fenêtre
+    //SDL_WM_SetIcon(SDL_LoadBMP("SUPER8ICONE.bmp"), NULL); // Pour changer l'icone du .exe
+
+    ecran = SDL_SetVideoMode(800, 540, 32, SDL_HWSURFACE); // On tente d'ouvrir une fenêtre
     if (ecran == NULL) { // Si l'ouverture a échoué, on le note et on arrête
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -44,9 +50,15 @@ int main(int argc, char *argv[]) {
 
     //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0)); // remplir l'écran d'une couleur
 
+
 //REMPLISSAGE DE LA FRANCE
-    pixel = SDL_CreateRGBSurface(SDL_HWSURFACE, 1, 1, 16, 0, 0, 0, 0); // creation d'une surface
-    remplirFrance(tabPt, pixel, ecran, LIGNES, COLONNES);
+    pixel = SDL_CreateRGBSurface(SDL_HWSURFACE, 1, 1, 32, 0, 0, 0, 0); // creation d'une surface
+    tempo = SDL_CreateRGBSurface(SDL_HWSURFACE, COLONNES, LIGNES, 32, 0, 0, 0, 0);
+    remplirFrance(tabPt, pixel, tempo, LIGNES, COLONNES); // on obtient la France en 1161 par 1081
+
+    dezoom = SDL_CreateRGBSurface(SDL_HWSURFACE, 580, 540, 32, 0, 0, 0, 0);
+    dezoom = zoomSurface(tempo, 0.4995, 0.4995, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
+    SDL_BlitSurface(dezoom, NULL, ecran, NULL); // On met la nouvelle France sur ecran
 
     SDL_Flip(ecran); // Mise à jour de l'écran
     pause(); // Mise en pause du programme
@@ -54,6 +66,8 @@ int main(int argc, char *argv[]) {
 
 //LIBERATION
     SDL_FreeSurface(pixel);
+    SDL_FreeSurface(tempo);
+    SDL_FreeSurface(dezoom);
     SDL_Quit(); // Arrêt de la SDL
 
 
