@@ -14,3 +14,4 @@ extern void affiche_tab(Point **tab, int li, int co);
 extern int valMax_tab(Point **tab, int li, int co);
 
 #endif // H_PARTIE1
+

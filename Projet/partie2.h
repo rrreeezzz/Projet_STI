@@ -5,7 +5,10 @@
 
 extern void pause();
 
-extern void remplirFrance(Point **tab, SDL_Surface *surface, SDL_Surface *screen, int li, int co);
+extern void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, Uint8 *b);
+
+extern void remplirFrance(Point **tab, SDL_Surface *pixel, SDL_Surface *sortie, int li, int co);
 
 #endif // H_PARTIE2
+
 

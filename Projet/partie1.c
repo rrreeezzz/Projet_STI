@@ -73,3 +73,4 @@ int valMax_tab(Point **tab, int li, int co) {  // Permet d'avoir le plus haut so
     a=ftell(fichier);
     printf("%ld\n",a);
     */
+
