@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1448895803 source:/home/fabien/Documents/projet_sti/Projet/main.c
+1448898491 source:/home/fabien/Documents/projet_sti/Projet/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
 	"partie1.h"
 	"partie2.h"
 	<SDL/SDL_rotozoom.h>
+	<SDL/SDL_ttf.h>
 
 1448888953 /home/fabien/Documents/projet_sti/Projet/partie1.h
 	"module.h"
@@ -15,7 +16,7 @@
 1448895435 /home/fabien/Documents/projet_sti/Projet/partie2.h
 	"module.h"
 
-1448888953 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
+1448896097 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
 	<stdio.h>
 	<stdlib.h>
 	"partie1.h"

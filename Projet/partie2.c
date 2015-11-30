@@ -4,7 +4,37 @@
 #include "partie2.h"
 #include "module.h"
 
-void pause(SDL_Surface *boutton) {
+/*void scrolling(ecran* m,SDL_Surface* screen)
+{
+    int i,j;
+    SDL_Rect Rect_dest;
+    int numero_tile;
+    for(i=0;i< fenetre->largeur;i++){
+        for(j=0;j< fenetre->hauteur;j++){
+            SDL_BlitSurface()
+        }
+    }
+}
+void mousemov(void){ //va permettre "d'ecouter" la sourie
+    int posx, posy;
+    int stop = 1;
+    SDL_Event event;
+    while(stop){
+        SDL_WaitEvent(&event);
+        switch(event.type){
+            case SDL_MOUSEBUTTONUP:
+                stop=0;
+                break;
+            default:
+                posx=event.button.x;
+                posy=event.button.y;
+                scrolling(posx, posy);
+            }
+    }
+}*/
+
+
+void pause(SDL_Surface *boutton /*,int * pzoom*/) {
     int continuer = 1;
     SDL_Event event;
     while (continuer) { // TANT QUE la variable ne vaut pas 0
@@ -18,9 +48,13 @@ void pause(SDL_Surface *boutton) {
                   && event.button.y <= 200 +boutton->h  // si clic sur boutton
                   && event.button.x > 600
                   && event.button.x <= 600+boutton->w){
-                  continuer = 0;
-              }
+                    continuer = 0;
+              }/*else if(*pzoom =! 0){
+                    mousemov();
+                }
               break;
+            case  SDL_BUTTON_WHEELDOWN:
+                */
         }
     }
 }

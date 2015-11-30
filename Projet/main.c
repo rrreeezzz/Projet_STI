@@ -69,6 +69,8 @@ int main(int argc, char *argv[]) {
     dezoom = SDL_CreateRGBSurface(SDL_HWSURFACE, 580, 540, 32, 0, 0, 0, 0);
     dezoom = zoomSurface(tempo, 0.4995, 0.4995, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
     SDL_BlitSurface(dezoom, NULL, ecran, NULL); // On met la nouvelle France sur ecran
+    int zoom = 0;
+    int * pzoom=zoom;
 
     police = TTF_OpenFont("morningtype/Morningtype.ttf", 20);
     boutton = TTF_RenderText_Blended(police, "Ok !", (SDL_Color) {255, 255, 255});
