@@ -4,7 +4,7 @@
 #include "partie2.h"
 #include "module.h"
 
-void pause() {
+void pause(SDL_Surface *boutton) {
     int continuer = 1;
     SDL_Event event;
     while (continuer) { // TANT QUE la variable ne vaut pas 0
@@ -13,6 +13,14 @@ void pause() {
             case SDL_QUIT: // Si c'est un événement QUITTER
                 continuer = 0; // On met le booléen à 0, donc la boucle va s'arrêter
                 break;
+            case SDL_MOUSEBUTTONUP:
+              if (   event.button.y > 200
+                  && event.button.y <= 200 +boutton->h  // si clic sur boutton
+                  && event.button.x > 600
+                  && event.button.x <= 600+boutton->w){
+                  continuer = 0;
+              }
+              break;
         }
     }
 }

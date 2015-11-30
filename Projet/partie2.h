@@ -3,7 +3,7 @@
 
 #include "module.h"
 
-extern void pause();
+extern void pause(SDL_Surface *boutton);
 
 extern void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, Uint8 *b);
 

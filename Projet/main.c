@@ -4,14 +4,19 @@
 #include "partie1.h"
 #include "partie2.h"
 #include <SDL/SDL_rotozoom.h>
+#include <SDL/SDL_ttf.h>
 
 int main(int argc, char *argv[]) {
     FILE *fichier = NULL;
     Point **tabPt = NULL;
+
     SDL_Surface *ecran = NULL; // Le pointeur qui va stocker la surface de l'écran
     SDL_Surface *pixel = NULL; // Le pointeur qui va remplir la France
     SDL_Surface *tempo = NULL; // Va accueillir la France temporairement
     SDL_Surface *dezoom = NULL; // Va dezoomer la France avant de la mettre sur ecran
+    SDL_Surface *boutton = NULL; //surface pour le boutton
+    SDL_Rect positionBoutton; //rectangle acceuillant le boutton
+    TTF_Font *police = NULL; //acceuille la police pour le boutton
 
 
 //ALLOCATION MEMOIRE & OUVERTURE DU FICHIER
@@ -38,6 +43,11 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE); // On quitte le programme
     }
 
+    if(TTF_Init() == -1){ //initialise SDL_ttf
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+    }
+
     //SDL_WM_SetIcon(SDL_LoadBMP("SUPER8ICONE.bmp"), NULL); // Pour changer l'icone du .exe
 
     ecran = SDL_SetVideoMode(800, 540, 32, SDL_HWSURFACE); // On tente d'ouvrir une fenêtre
@@ -60,14 +70,22 @@ int main(int argc, char *argv[]) {
     dezoom = zoomSurface(tempo, 0.4995, 0.4995, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
     SDL_BlitSurface(dezoom, NULL, ecran, NULL); // On met la nouvelle France sur ecran
 
+    police = TTF_OpenFont("morningtype/Morningtype.ttf", 20);
+    boutton = TTF_RenderText_Blended(police, "Ok !", (SDL_Color) {255, 255, 255});
+    positionBoutton.x = 600;
+    positionBoutton.y = 200;
+    SDL_BlitSurface (boutton,NULL,ecran, &positionBoutton);
+
     SDL_Flip(ecran); // Mise à jour de l'écran
-    pause(); // Mise en pause du programme
+    pause(boutton); // Mise en pause du programme
 
 
 //LIBERATION
     SDL_FreeSurface(pixel);
     SDL_FreeSurface(tempo);
     SDL_FreeSurface(dezoom);
+    TTF_CloseFont(police); /* Doit être avant TTF_Quit() */
+    TTF_Quit();
     SDL_Quit(); // Arrêt de la SDL
 
 
