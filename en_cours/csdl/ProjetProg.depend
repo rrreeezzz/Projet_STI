@@ -1,0 +1,62 @@
+# depslib dependency file v1.0
+1448898491 source:/home/fabien/Documents/projet_sti/Projet/main.c
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	"partie1.h"
+	"partie2.h"
+	<SDL/SDL_rotozoom.h>
+	<SDL/SDL_ttf.h>
+
+1448888953 /home/fabien/Documents/projet_sti/Projet/partie1.h
+	"module.h"
+
+1448896090 /home/fabien/Documents/projet_sti/Projet/module.h
+
+1448895435 /home/fabien/Documents/projet_sti/Projet/partie2.h
+	"module.h"
+
+1448896097 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
+	<stdio.h>
+	<stdlib.h>
+	"partie1.h"
+	"module.h"
+
+1448895355 source:/home/fabien/Documents/projet_sti/Projet/partie2.c
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	"partie2.h"
+	"module.h"
+
+1449171122 source:/home/fabien/Documents/test/csdl/main.c
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	"partie1.h"
+	"partie2.h"
+	<SDL/SDL_rotozoom.h>
+	<SDL/SDL_ttf.h>
+
+1448888953 /home/fabien/Documents/test/csdl/partie1.h
+	"module.h"
+
+1448896090 /home/fabien/Documents/test/csdl/module.h
+
+1449171199 /home/fabien/Documents/test/csdl/partie2.h
+	"module.h"
+
+1448896097 source:/home/fabien/Documents/test/csdl/partie1.c
+	<stdio.h>
+	<stdlib.h>
+	"partie1.h"
+	"module.h"
+
+1449172463 source:/home/fabien/Documents/test/csdl/partie2.c
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	<SDL/SDL_rotozoom.h>
+	"partie2.h"
+	"module.h"
+
