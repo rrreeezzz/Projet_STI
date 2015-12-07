@@ -1,19 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "partie1.h"
-#include "module.h"
+
 
 void libere(Point **tab, int li) {
+
     int i;
+
     for (i=0; i<li; i++) {
         free(tab[i]);
     }
+
     free(tab);
 }
 
 void alloue(Point **tab, int li, int co) {
+
     int i;
+
     for (i=0; i<li; i++) {
+
         if ((tab[i] = (Point*) malloc(co * sizeof(Point))) == NULL) { // chaque pointeur pointe sur un tableau de y Point
             printf("\aErreur d'allocation mémoire\n");  // si il y a une erreur on rentre dans le if
             libere(tab, i);
@@ -23,7 +27,9 @@ void alloue(Point **tab, int li, int co) {
 }
 
 int ajout_tab(Point **tab, FILE* file, int li, int co) {
+
     int i,j;
+
     for (i=0; i<li; i++) {
         for (j=0; j<co; j++) {
             if(fscanf(file, "%d", &tab[i][j].metre) != 1)
@@ -37,7 +43,9 @@ int ajout_tab(Point **tab, FILE* file, int li, int co) {
 }
 
 void affiche_tab(Point **tab, int li, int co) {
+
     int i,j;
+
     for (i=0; i<li; i++) {
         for (j=0; j<co; j++) {
             printf("%d ", tab[i][j].metre);
@@ -47,7 +55,9 @@ void affiche_tab(Point **tab, int li, int co) {
 }
 
 int valMax_tab(Point **tab, int li, int co) {  // Permet d'avoir le plus haut sommet de France
+
     int i,j;
+
     int max = tab[0][0].metre;
     for (i=0; i<li; i++) {
         for (j=0; j<co; j++) {
@@ -73,4 +83,5 @@ int valMax_tab(Point **tab, int li, int co) {  // Permet d'avoir le plus haut so
     a=ftell(fichier);
     printf("%ld\n",a);
     */
+
 
