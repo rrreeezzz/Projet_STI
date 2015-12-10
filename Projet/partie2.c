@@ -1,6 +1,5 @@
 #include "partie2.h"
 
-
 void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo, SDL_Surface * ecran){
 
     SDL_Surface *nouvelleImageTemp = NULL;
@@ -10,12 +9,12 @@ void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo, SDL_Surface * e
     positionzoom.x = 590;
     positionzoom.y = 300;
 
-    positionExtraction.x = (posx-100/val_zoom)/0.4995; //on divise par 0.4995 ar c'est le facteur entre la carte dezoom et tempo
+    positionExtraction.x = (posx-100/val_zoom)/0.4995; //on divise par 0.4995 car c'est le facteur entre la carte dezoom et tempo
     positionExtraction.y = (posy-50/val_zoom)/0.4995;
-    positionExtraction.w = 200/(val_zoom*0.4995); //a chaque fois la zone a zoomé sur se réduit en fct de val_zoom
+    positionExtraction.w = 200/(val_zoom*0.4995); // a chaque fois la zone a zoomer sur se réduit en fct de val_zoom
     positionExtraction.h = 100/(val_zoom*0.4995);
 
-    nouvelleImageTemp = SDL_CreateRGBSurface(SDL_HWSURFACE, positionExtraction.w, positionExtraction.h, 32, 0, 0, 0, 0); //la surface a les memes dim que le rect a prendre
+    nouvelleImageTemp = SDL_CreateRGBSurface(SDL_HWSURFACE, positionExtraction.w, positionExtraction.h, 32, 0, 0, 0, 0); // la surface a les memes dim que le rect a prendre
 
     SDL_BlitSurface(tempo, &positionExtraction, nouvelleImageTemp, NULL);
 
@@ -71,7 +70,6 @@ void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, 
         int bpp = surface->format->BytesPerPixel;
         Uint8 *p = (Uint8 *)surface->pixels + position.y * surface->pitch + position.x * bpp;
         SDL_GetRGB(*(Uint32 *)p,surface->format, r, g, b);
-
     }else{ // sinon on renvoie noir, pour éviter de planter dans certains cas
         r = 0;
         g = 0;
@@ -93,36 +91,30 @@ void remplirFrance(Point **tab, SDL_Surface *pixel, SDL_Surface *sortie, int li,
 
     int i,j;
     for (i=0; i<li; i++) {
-
         for (j=0; j<co; j++) {
-
             position_sortie.x = j;
-
             if ((tab[i][j].metre) < 0) {
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 0, 0, 0)); // remplir la surface de noir
-
-            }else if ((tab[i][j].metre) == 0) {
+            }else if ((tab[i][j].estInonde) == 1) {
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 0, 0, 255)); // remplir la surface de bleu
-
+            }else if ((tab[i][j].estInonde) == 2) {
+                SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 255, 0, 0));
             }else if ((tab[i][j].metre) > 2500) {
                 position_degrade.y = 2500;
                 getPixelColor(position_degrade, degrade, &r, &g, &b);
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, r, g, b)); // remplir la surface de la couleur 2500m
-
             }else{
                 position_degrade.y = tab[i][j].metre;
                 getPixelColor(position_degrade, degrade, &r, &g, &b);
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, r, g, b)); // remplir la surface de la couleur de l'altitude
             }
-
             SDL_BlitSurface(pixel, NULL, sortie, &position_sortie); // on met chaque pixel sur la surface de sortie
         }
-
         position_sortie.y = i;
     }
-
     SDL_FreeSurface(degrade);
 }
+
 
 void sdl_ini(Point ** tabPt){
 
