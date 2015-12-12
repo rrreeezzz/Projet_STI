@@ -132,6 +132,7 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, int li, int co, SDL_Surface
     //on obtient la France en 1161 par 1081
 
     dezoom = zoomSurface(sortie, 0.4995, 0.4995, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
+    SDL_SetAlpha(dezoom, SDL_SRCALPHA, 128);
     SDL_BlitSurface(dezoom, NULL, ecran, NULL); // On met la nouvelle France sur ecran
 
     SDL_FreeSurface(degrade);
@@ -206,7 +207,6 @@ void sdl_ini(Point ** tabPt){
 
     remplirFrance(tabPt, tempo, LIGNES, COLONNES, ecran);
     TBoutton = boutton(ecran, police);
-
 
     SDL_Flip(ecran); // Mise à jour de l'écran
     pause(tabPt, TBoutton,tempo, ecran); // Mise en pause du programme
