@@ -6,7 +6,7 @@ void libere(Point **tab, int li) {
         free(tab[i]);
     }
     free(tab);
-    printf("libération réussie");
+    printf("Liberation reussie !");
 }
 
 Point** alloue(int li, int co) {
@@ -64,6 +64,7 @@ void affiche_tab(Point **tab, int li, int co) {
 }*/
 
 int propagation_bas(Point **tab, int x, int y, int h, int inonde) {
+
     int res = 0;
     int mx = 0, my = 0;
     if (h<20) {
@@ -107,6 +108,7 @@ int propagation_bas(Point **tab, int x, int y, int h, int inonde) {
 }
 
 int propagation_haut(Point **tab,int x, int y, int h, int inonde) {
+
     int res = 0;
     int mx = 0, my = 0;
     if (h<20) {
@@ -189,7 +191,7 @@ Point** chargement() {
     }
 
     super_propa(tab, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 0, 1);
-    super_propa(tab, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 80, 2); //celui là on l'enleverra et on le mettra dans un fichier qui prend en compte l'altitude d'inondation qu'on choisit
+    super_propa(tab, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 0, 2); //celui là on l'enleverra et on le mettra dans un fichier qui prend en compte l'altitude d'inondation qu'on choisit
 
     fclose(fichier);
     return tab;

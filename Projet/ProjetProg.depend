@@ -1,25 +1,31 @@
 # depslib dependency file v1.0
-1449510278 source:/home/fabien/Documents/projet_sti/Projet/main.c
-	"partie1.h"
-	"partie2.h"
-
-1449439025 /home/fabien/Documents/projet_sti/Projet/partie1.h
-	"module.h"
-
-1449438741 /home/fabien/Documents/projet_sti/Projet/module.h
+1449764266 source:/home/fabien/Documents/projet_sti/Projet/main.c
 	<stdio.h>
 	<stdlib.h>
+	<SDL/SDL.h>
+	"partie1.h"
+	"partie2.h"
+	<SDL/SDL_rotozoom.h>
+	<SDL/SDL_ttf.h>
 
-1449436767 /home/fabien/Documents/projet_sti/Projet/partie2.h
+1449764197 /home/fabien/Documents/projet_sti/Projet/partie1.h
+	<stdio.h>
+	<stdlib.h>
+	"module.h"
+
+1449764197 /home/fabien/Documents/projet_sti/Projet/module.h
+
+1449925844 /home/fabien/Documents/projet_sti/Projet/partie2.h
 	"module.h"
 	<SDL/SDL.h>
 	<SDL/SDL_rotozoom.h>
 	<SDL/SDL_ttf.h>
+	<string.h>
 
-1449439025 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
+1449766347 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
 	"partie1.h"
 
-1449510194 source:/home/fabien/Documents/projet_sti/Projet/partie2.c
+1449926638 source:/home/fabien/Documents/projet_sti/Projet/partie2.c
 	"partie2.h"
 
 1449439025 source:/home/fabien/Documents/test/csdl/main.c
@@ -44,4 +50,6 @@
 
 1449510194 source:/home/fabien/Documents/test/csdl/partie2.c
 	"partie2.h"
+
+1449511024 source:/home/fabien/Documents/projet_sti/Projet/innondation.c
 
