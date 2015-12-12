@@ -14,4 +14,3 @@ extern int ajout_tab(Point **tab, FILE* file);
 extern Point** chargement();
 
 #endif // H_PARTIE1
-

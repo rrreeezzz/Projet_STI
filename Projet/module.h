@@ -12,4 +12,3 @@ typedef struct {
 } Point;
 
 #endif // H_MODULE
-

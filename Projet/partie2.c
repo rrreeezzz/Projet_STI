@@ -27,11 +27,7 @@ void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo, SDL_Surface * e
     SDL_FreeSurface(nouvelleImageTemp);
 }
 
-<<<<<<< HEAD
-void pause(Point ** tabPt, SDL_Rect TBoutton, SDL_Surface * tempo, SDL_Surface * ecran) {
-=======
 void pause(Point **tab, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecran) {
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 
     int continuer = 1;
     SDL_Event event;
@@ -46,20 +42,6 @@ void pause(Point **tab, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecra
                 break;
 
             case SDL_MOUSEBUTTONDOWN: //si on appui sur un bouton de la sourie
-<<<<<<< HEAD
-
-                if ( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200 +TBoutton.h && event.button.x > 600 && event.button.x <= 600+TBoutton.w){
-                    super_propa(tabPt, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 10, 2);
-                    remplirFrance(tabPt, tempo, LIGNES, COLONNES, ecran);
-                    SDL_Flip(ecran);
-                }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200 +TBoutton.h && event.button.x > 650 && event.button.x <= 650+TBoutton.w){
-                    super_propa(tabPt, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 20, 2);
-                    remplirFrance(tabPt, tempo, LIGNES, COLONNES, ecran);
-                    SDL_Flip(ecran);
-                }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200 +TBoutton.h && event.button.x > 700 && event.button.x <= 700+TBoutton.w){
-                    super_propa(tabPt, LIGNES, COLONNES, 0, 0, LIGNES-1 , COLONNES-1, 30, 2);
-                    remplirFrance(tabPt, tempo, LIGNES, COLONNES, ecran);
-=======
                 if ( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200+TBoutton.h && event.button.x > 1000 && event.button.x <= 1000+TBoutton.w) {
                     init_propa(tab);
                     remplirFrance(tab, tempo, ecran);
@@ -78,14 +60,13 @@ void pause(Point **tab, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecra
                     init_propa(tab);
                     super_propa(tab, 0, 0, LIGNES-1 , COLONNES-1, 30, 2);
                     remplirFrance(tab, tempo, ecran);
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
                     SDL_Flip(ecran);
 
                 }else if (event.button.button == SDL_BUTTON_WHEELUP){
                     val_zoom = val_zoom == 3 ? 3 : val_zoom+1; //test ternaire
                     zoom(event.motion.x, event.motion.y, val_zoom, tempo, ecran);
                 }else if (event.button.button == SDL_BUTTON_WHEELDOWN){
-                    val_zoom = val_zoom == 1 ? 1 : val_zoom-1; //test ternaire*
+                    val_zoom = val_zoom == 1 ? 1 : val_zoom-1; //test ternaire
                     zoom(event.motion.x, event.motion.y, val_zoom, tempo, ecran);
                 }
                 break;
@@ -110,11 +91,7 @@ void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, 
     }
 }
 
-<<<<<<< HEAD
-void remplirFrance(Point **tab, SDL_Surface *sortie, int li, int co, SDL_Surface * ecran) {
-=======
 void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *ecran) {
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 
     SDL_Surface *pixel = NULL; // Le pointeur qui va remplir la France
     SDL_Surface *dezoom = NULL; // Va dezoomer la France avant de la mettre sur ecran
@@ -130,10 +107,6 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *ecran) {
     position_degrade.y = 0;
 
     pixel = SDL_CreateRGBSurface(SDL_HWSURFACE, 1, 1, 32, 0, 0, 0, 0); // creation d'une surface
-<<<<<<< HEAD
-    dezoom = SDL_CreateRGBSurface(SDL_HWSURFACE, 580, 540, 32, 0, 0, 0, 0);
-=======
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 
     int i,j;
     for (i=0; i<LIGNES; i++) {
@@ -144,11 +117,7 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *ecran) {
             }else if ((tab[i][j].estInonde) == 1) {
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 33, 150, 243)); // remplir la surface de bleu
             }else if ((tab[i][j].estInonde) == 2) {
-<<<<<<< HEAD
-                SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 255, 0, 0)); //rempli de rouge
-=======
                 SDL_FillRect(pixel, NULL, SDL_MapRGB(sortie->format, 250, 20, 15)); //rempli de rouge
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
             }else if ((tab[i][j].metre) > 2500) {
                 position_degrade.y = 2500;
                 getPixelColor(position_degrade, degrade, &r, &g, &b);
@@ -164,51 +133,12 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *ecran) {
     }
     //on obtient la France en 1161 par 1081
 
-<<<<<<< HEAD
-    dezoom = zoomSurface(sortie, 0.4995, 0.4995, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
-    SDL_SetAlpha(dezoom, SDL_SRCALPHA, 128);
-=======
     dezoom = zoomSurface(sortie, DEZOOM_X, DEZOOM_Y, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
     SDL_BlitSurface(dezoom, NULL, ecran, NULL); // On met la nouvelle France sur ecran
 
     SDL_FreeSurface(degrade);
     SDL_FreeSurface(pixel);
     SDL_FreeSurface(dezoom);
-<<<<<<< HEAD
-
-}
-
-SDL_Rect boutton(SDL_Surface * ecran, TTF_Font * police){
-
-    int i = 0;
-    char texte[10];
-    SDL_Surface * Boutton; //pour les 3 boutons
-    SDL_Rect positionBoutton; //rectangle acceuillant le boutton
-
-    Boutton = NULL;
-    police = TTF_OpenFont("morningtype/Morningtype.ttf", 20);
-
-    for(i=0; i<3; i++){ //on initialise et affiche les 3 bouttons
-
-        switch(i){case 0 : strcpy(texte, "10m"); break; case 1 : strcpy(texte, "20m"); break; case 2 : strcpy(texte, "30m"); break;}
-        Boutton = TTF_RenderText_Blended(police, texte, (SDL_Color) {255, 255, 255});
-        positionBoutton.x = 600 + i*50;
-        positionBoutton.y = 200;
-        SDL_BlitSurface (Boutton,NULL,ecran, &positionBoutton);
-
-    }
-
-    positionBoutton.h = Boutton->h;
-    positionBoutton.w = Boutton->w;
-
-    SDL_FreeSurface(Boutton);
-    TTF_CloseFont(police);
-
-    return positionBoutton;
-
-=======
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 }
 
 SDL_Rect boutton(SDL_Surface *ecran, TTF_Font *police){
@@ -275,19 +205,6 @@ void sdl_ini(Point ** tab){
 
     SDL_WM_SetCaption("Mon super .exe", NULL); // changer nom de la fenêtre
 
-<<<<<<< HEAD
-
-//REMPLISSAGE DE LA FRANCE
-
-    tempo = SDL_CreateRGBSurface(SDL_HWSURFACE, COLONNES, LIGNES, 32, 0, 0, 0, 0);
-
-    remplirFrance(tabPt, tempo, LIGNES, COLONNES, ecran);
-    TBoutton = boutton(ecran, police);
-
-    SDL_Flip(ecran); // Mise à jour de l'écran
-    pause(tabPt, TBoutton,tempo, ecran); // Mise en pause du programme
-
-=======
 //REMPLISSAGE DE LA FRANCE
     super_propa(tab, 0, 0, LIGNES-1 , COLONNES-1, 0, 1); // On initialise tab pour que estInonde = 1 pour la vraie mer
 
@@ -297,7 +214,6 @@ void sdl_ini(Point ** tab){
 
     SDL_Flip(ecran); // Mise à jour de l'écran
     pause(tab, TBoutton, tempo, ecran); // Mise en pause du programme
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 
 //LIBERATION
     SDL_FreeSurface(tempo);

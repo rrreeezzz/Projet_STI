@@ -9,21 +9,11 @@
 
 extern void zoom(int posx, int posy, int val_zoom, SDL_Surface *tempo, SDL_Surface *ecran);
 
-<<<<<<< HEAD
-extern void pause(Point ** tabPt, SDL_Rect TBoutton, SDL_Surface * tempo, SDL_Surface * ecran);
-
-extern void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, Uint8 *b);
-
-extern void remplirFrance(Point **tab, SDL_Surface *sortie, int li, int co, SDL_Surface * ecran);
-
-extern SDL_Rect boutton(SDL_Surface * ecran, TTF_Font * police);
-=======
 extern void pause(Point **tabPt, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecran);
 
 extern void getPixelColor(SDL_Rect position, SDL_Surface *surface, Uint8 *r, Uint8 *g, Uint8 *b);
 
 extern void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *ecran);
->>>>>>> efc96029c20b9bd39c71691afe16a487432ea941
 
 extern SDL_Rect boutton(SDL_Surface *ecran, TTF_Font *police);
 
