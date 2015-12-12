@@ -10,16 +10,10 @@
 int main(int argc, char *argv[]) {
 
     Point **tabPt = NULL;
-
-
-//ALLOCATION MEMOIRE & OUVERTURE DU FICHIER
-
-    tabPt = chargement(); // allocation mémoire de tab[x][y]
+    tabPt = chargement();
 
     sdl_ini(tabPt);
 
     libere(tabPt, LIGNES);
-
-
     return EXIT_SUCCESS;
 }
