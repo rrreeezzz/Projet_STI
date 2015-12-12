@@ -4,14 +4,15 @@
 void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo, SDL_Surface * ecran){
 
     SDL_Surface *nouvelleImageTemp = NULL;
+    SDL_Surface * zoom = NULL; //obligé de créer une nouvelle surface sinon nouvelleImageTemp = zoomSurface(nouvelleImageTemp, val_zoom, val_zoom, 1); sature la mémoire
     SDL_Rect positionzoom;
     SDL_Rect positionExtraction;
 
     positionzoom.x = 1000;
     positionzoom.y = 350;
 
-    positionExtraction.x = (posx-100/val_zoom)/DEZOOM_X; //on divise par DEZOOM_X car c'est le facteur entre la carte dezoom et tempo
-    positionExtraction.y = (posy-50/val_zoom)/DEZOOM_Y;
+    positionExtraction.x = (posx-150/val_zoom)/DEZOOM_X; //on divise par DEZOOM_X car c'est le facteur entre la carte dezoom et tempo
+    positionExtraction.y = (posy-150/val_zoom)/DEZOOM_Y;
     positionExtraction.w = 300/(val_zoom*DEZOOM_X); // a chaque fois la zone à zoomer sur se réduit en fct de val_zoom
     positionExtraction.h = 300/(val_zoom*DEZOOM_Y);
 
@@ -19,12 +20,15 @@ void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo, SDL_Surface * e
 
     SDL_BlitSurface(tempo, &positionExtraction, nouvelleImageTemp, NULL);
 
-    nouvelleImageTemp = zoomSurface(nouvelleImageTemp, val_zoom, val_zoom, 1);
+    zoom = zoomSurface(nouvelleImageTemp, val_zoom, val_zoom, 1);
 
-    SDL_BlitSurface(nouvelleImageTemp, NULL, ecran, &positionzoom);
-    SDL_Flip(ecran); // Mise à jour de l'écran
+    SDL_BlitSurface(zoom, NULL, ecran, &positionzoom);
 
     SDL_FreeSurface(nouvelleImageTemp);
+    SDL_FreeSurface(zoom);
+
+    SDL_Flip(ecran); // Mise à jour de l'écran
+
 }
 
 void pause(Point **tab, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecran) {
@@ -61,6 +65,8 @@ void pause(Point **tab, SDL_Rect TBoutton, SDL_Surface *tempo, SDL_Surface *ecra
                     super_propa(tab, 0, 0, LIGNES-1 , COLONNES-1, 30, 2);
                     remplirFrance(tab, tempo, ecran);
                     SDL_Flip(ecran);
+                /*}else if( event.button.button == SDL_BUTTON_LEFT && event.button.y <= tempo->h && event.button.x <= tempo->w) { //peut-être moins energivore ?? A débattre
+                    zoom(event.motion.x, event.motion.y, val_zoom, tempo, ecran);*/
 
                 }else if (event.button.button == SDL_BUTTON_WHEELUP){
                     val_zoom = val_zoom == 3 ? 3 : val_zoom+1; //test ternaire

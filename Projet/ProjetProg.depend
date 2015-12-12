@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1449764266 source:/home/fabien/Documents/projet_sti/Projet/main.c
+1449938852 source:/home/fabien/Documents/projet_sti/Projet/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
@@ -8,25 +8,26 @@
 	<SDL/SDL_rotozoom.h>
 	<SDL/SDL_ttf.h>
 
-1449764197 /home/fabien/Documents/projet_sti/Projet/partie1.h
+1449938986 /home/fabien/Documents/projet_sti/Projet/partie1.h
 	<stdio.h>
 	<stdlib.h>
 	"module.h"
 
-1449764197 /home/fabien/Documents/projet_sti/Projet/module.h
+1449938998 /home/fabien/Documents/projet_sti/Projet/module.h
 
-1449925844 /home/fabien/Documents/projet_sti/Projet/partie2.h
+1449938967 /home/fabien/Documents/projet_sti/Projet/partie2.h
 	"module.h"
 	<SDL/SDL.h>
 	<SDL/SDL_rotozoom.h>
 	<SDL/SDL_ttf.h>
 	<string.h>
 
-1449766347 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
+1449938867 source:/home/fabien/Documents/projet_sti/Projet/partie1.c
 	"partie1.h"
 
-1449926677 source:/home/fabien/Documents/projet_sti/Projet/partie2.c
+1449944138 source:/home/fabien/Documents/projet_sti/Projet/partie2.c
 	"partie2.h"
+	"propagation.h"
 
 1449938852 source:/home/fabien/Documents/test/csdl/main.c
 	<stdio.h>
@@ -54,7 +55,7 @@
 1449938867 source:/home/fabien/Documents/test/csdl/partie1.c
 	"partie1.h"
 
-1449938892 source:/home/fabien/Documents/test/csdl/partie2.c
+1449944060 source:/home/fabien/Documents/test/csdl/partie2.c
 	"partie2.h"
 	"propagation.h"
 
@@ -65,4 +66,7 @@
 
 1449938441 source:/home/fabien/Documents/test/csdl/propagation.c
 	"propagation.h"
+
+1449938441 /home/fabien/Documents/projet_sti/Projet/propagation.h
+	"module.h"
 
