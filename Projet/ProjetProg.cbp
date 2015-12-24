@@ -49,6 +49,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="partie2.h" />
+		<Unit filename="propagation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="propagation.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
