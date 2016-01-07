@@ -9,7 +9,7 @@
 #include <errno.h>
 #include <pthread.h>
 
-extern void zoom(int posx, int posy, int val_zoom, SDL_Surface *tempo);
+extern void zoom(int posx, int posy, int val_zoom, int type);
 
 extern void pause(SDL_Rect TBoutton);
 
@@ -21,7 +21,7 @@ extern SDL_Rect boutton();
 
 extern void sdl_ini();
 
-extern void * fichier_dif(data_map * data_75);
+extern void * fichier_dif();
 
 SDL_Surface * ecran;
 

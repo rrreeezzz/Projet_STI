@@ -1,24 +1,43 @@
 #include "partie2.h"
+#include "partie1.h"
 #include "propagation.h"
 
-void zoom(int posx, int posy, int val_zoom, SDL_Surface * tempo){
+void zoom(int posx, int posy, int val_zoom, int type){
 
     SDL_Surface *nouvelleImageTemp = NULL;
     SDL_Surface * zoom = NULL; //obligé de créer une nouvelle surface sinon nouvelleImageTemp = zoomSurface(nouvelleImageTemp, val_zoom, val_zoom, 1); sature la mémoire
     SDL_Rect positionzoom;
     SDL_Rect positionExtraction;
 
-    positionzoom.x = 1000;
+    positionzoom.x = 1000; //position du carré zoom
     positionzoom.y = 350;
 
-    positionExtraction.x = (posx-150/val_zoom)/0.7; //on divise par DEZOOM_X car c'est le facteur entre la carte dezoom et tempo
-    positionExtraction.y = (posy-150/val_zoom)/0.7;
-    positionExtraction.w = 300/(val_zoom*0.7); // a chaque fois la zone à zoomer sur se réduit en fct de val_zoom
-    positionExtraction.h = 300/(val_zoom*0.7);
+    if(type == 1000){
+
+        positionExtraction.x = (posx-150/val_zoom)/DEZOOM_X_1000; //on divise par DEZOOM_X car c'est le facteur entre la surface  zoomé de data_1000 et la surface de data_1000
+        positionExtraction.y = (posy-150/val_zoom)/DEZOOM_Y_1000;
+        positionExtraction.w = 300/(val_zoom*DEZOOM_X_1000); // a chaque fois la zone à zoomer sur se réduit en fct de val_zoom
+        positionExtraction.h = 300/(val_zoom*DEZOOM_Y_1000);
+
+    }else if(type == 75){
+
+        positionExtraction.x = (posx-150/val_zoom)/DEZOOM_X_75; //on divise par DEZOOM_X car c'est le facteur entre la surface  zoomé de data_1000 et la surface de data_1000
+        positionExtraction.y = (posy-150/val_zoom)/DEZOOM_Y_75;
+        positionExtraction.w = 300/(val_zoom*DEZOOM_X_1000); // a chaque fois la zone à zoomer sur se réduit en fct de val_zoom
+        positionExtraction.h = 300/(val_zoom*DEZOOM_Y_1000);
+
+    }
 
     nouvelleImageTemp = SDL_CreateRGBSurface(SDL_HWSURFACE, positionExtraction.w, positionExtraction.h, 32, 0, 0, 0, 0); // la surface a les memes dim que le rect a prendre
 
-    SDL_BlitSurface(tempo, &positionExtraction, nouvelleImageTemp, NULL);
+    switch(type){
+        case 1000:
+            SDL_BlitSurface(data_1000->pt_surface, &positionExtraction, nouvelleImageTemp, NULL);
+            break;
+        case 75:
+            SDL_BlitSurface(data_75->pt_surface, &positionExtraction, nouvelleImageTemp, NULL);
+            break;
+    }
 
     zoom = zoomSurface(nouvelleImageTemp, val_zoom, val_zoom, 1);
 
@@ -36,6 +55,7 @@ void pause(SDL_Rect TBoutton) {
     int continuer = 1;
     SDL_Event event;
     int val_zoom = 1;
+    int type = 1000; //1000=data_1000, 75=data_75
 
     while (continuer) { // TANT QUE la variable ne vaut pas 0
         SDL_WaitEvent(&event); // On attend un événement qu'on récupère dans event
@@ -45,37 +65,42 @@ void pause(SDL_Rect TBoutton) {
                 continuer = 0; // On met le booléen à 0, donc la boucle va s'arrêter
                 break;
 
-            case SDL_MOUSEBUTTONDOWN: //si on appui sur un bouton de la sourie
+            case SDL_MOUSEBUTTONDOWN: //si on appui sur un bouton de la souri
                 if ( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200+TBoutton.h && event.button.x > 1000 && event.button.x <= 1000+TBoutton.w) {
                     init_propa(data_1000->pt_tab);
                     remplirFrance(data_1000->pt_tab, data_1000->pt_surface, ecran, 0, 0, 1000);
                     SDL_Flip(ecran);
+                    type = 1000;
                 }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200+TBoutton.h && event.button.x > 1050 && event.button.x <= 1050+TBoutton.w) {
                     init_propa(data_1000->pt_tab);
                     super_propa(data_1000->pt_tab, 0, 0, LIGNES-1 , COLONNES-1, 10, 2);
                     remplirFrance(data_1000->pt_tab,  data_1000->pt_surface, ecran, 0, 0, 1000);
                     SDL_Flip(ecran);
+                    type = 1000;
                 }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200+TBoutton.h && event.button.x > 1100 && event.button.x <= 1100+TBoutton.w) {
                     init_propa(data_1000->pt_tab);
                     super_propa(data_1000->pt_tab, 0, 0, LIGNES-1 , COLONNES-1, 20, 2);
                     remplirFrance(data_1000->pt_tab,  data_1000->pt_surface, ecran, 0, 0, 1000);
                     SDL_Flip(ecran);
+                    type = 1000;
                 }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 200 && event.button.y <= 200+TBoutton.h && event.button.x > 1150 && event.button.x <= 1150+TBoutton.w) {
                     init_propa(data_1000->pt_tab);
                     super_propa(data_1000->pt_tab, 0, 0, LIGNES-1 , COLONNES-1, 30, 2);
                     remplirFrance(data_1000->pt_tab,  data_1000->pt_surface, ecran, 0, 0, 1000);
                     SDL_Flip(ecran);
-                }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 100 && event.button.y <= 100+TBoutton.h && event.button.x > 1000 && event.button.x <= 1000+TBoutton.w && data_75->done == 1) {
-                    SDL_BlitSurface(data_75->pt_zoom, NULL, ecran, NULL);
+                    type = 1000;
+                }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y > 100 && event.button.y <= 100+TBoutton.h && event.button.x > 1000 && event.button.x <= 1000+TBoutton.w && data_5->done == 1) {
+                    SDL_BlitSurface(data_5->pt_zoom, NULL, ecran, NULL);
                     SDL_Flip(ecran);
+                    type = 1000;
                 }else if( event.button.button == SDL_BUTTON_LEFT && event.button.y <= data_1000->pt_surface->h && event.button.x <= data_1000->pt_surface->w) { //peut-être moins energivore ?? A débattre
-                    zoom(event.motion.x, event.motion.y, val_zoom,  data_1000->pt_surface);
+                    zoom(event.motion.x, event.motion.y, val_zoom, type);
                 }else if (event.button.button == SDL_BUTTON_WHEELUP){
                     val_zoom = val_zoom == 3 ? 3 : val_zoom+1; //test ternaire
-                    zoom(event.motion.x, event.motion.y, val_zoom,  data_1000->pt_surface);
+                    zoom(event.motion.x, event.motion.y, val_zoom, type);
                 }else if (event.button.button == SDL_BUTTON_WHEELDOWN){
                     val_zoom = val_zoom == 1 ? 1 : val_zoom-1; //test ternaire
-                    zoom(event.motion.x, event.motion.y, val_zoom,  data_1000->pt_surface);
+                    zoom(event.motion.x, event.motion.y, val_zoom, type);
                 }
                 break;
 
@@ -118,10 +143,7 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *blit_surface, 
     position_degrade.x = 1;
     position_degrade.y = 0;
 
-//POUR LA 75M
     SDL_Rect position_ecran;
-    position_ecran.x = x;//10*x; //    position_ecran.x = 0.7*x;
-    position_ecran.y = 1000-y;//11000-10*y; //    position_ecran.y = 800-0.7*y;
 
     int max_lignes, max_colonnes;
 
@@ -136,6 +158,15 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *blit_surface, 
         case 75:
             max_lignes = LIGNES_75;
             max_colonnes = COLONNES_75;
+            position_ecran.x = x;
+            position_ecran.y = 1000-y;
+            break;
+
+        case 5:
+            max_lignes = LIGNES_5;
+            max_colonnes = COLONNES_5;
+            position_ecran.x = x*10+100;
+            position_ecran.y = 500-10*y;
             break;
     }
 
@@ -166,13 +197,16 @@ void remplirFrance(Point **tab, SDL_Surface *sortie, SDL_Surface *blit_surface, 
     //on obtient la France en 1161 par 1081
 
     if(type == 1000){
-        dezoom = zoomSurface(sortie, 0.7, 0.7, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
+        dezoom = zoomSurface(sortie, DEZOOM_X_1000, DEZOOM_Y_1000, 1); //On transforme la surface tempo. zoomX = nouvelleLargeurX / ancienneLargeurX   zoomY = nouvelleLargeurY / ancienneLargeurY
         SDL_BlitSurface(dezoom, NULL, blit_surface, NULL); // On met la nouvelle France sur ecran
         data_1000->pt_zoom = dezoom; //on stock le zoom
     }
     else if(type == 75){
         dezoom = zoomSurface(sortie, (float) 0.075, (float) 0.075, 0); //On dezoom chaque tabeleau de 1000*1000 qu'on a placé sur une surface de 1000*1000
-        SDL_BlitSurface(dezoom, NULL, blit_surface, &position_ecran); // On met les tableaux dezoomé sur une surface qui peut contenir la france en 75m, ici ecran c'est data_75->pt_surface
+        SDL_BlitSurface(dezoom, NULL, blit_surface, &position_ecran); // On met les tableaux dezoomé sur une surface qui peut contenir la france en 75m, ici blit_surface c'est data_75->pt_surface
+    }else if(type == 5){
+        dezoom = zoomSurface(sortie, (float) 0.05, (float) 0.05, 0); //On dezoom chaque tabeleau de 1000*1000 qu'on a placé sur une surface de 1000*1000
+        SDL_BlitSurface(dezoom, NULL, blit_surface, &position_ecran); // On met les tableaux dezoomé sur une surface qui peut contenir la france en 5m, ici blit_surface c'est data_5->pt_surface
     }
 
     SDL_FreeSurface(degrade);
@@ -256,7 +290,7 @@ SDL_Rect boutton(){
     return positionBoutton;
 }
 
-void * fichier_dif(data_map * data_75){
+void * fichier_75(void){
 
     data_75->done = 0;
 
@@ -271,21 +305,20 @@ void * fichier_dif(data_map * data_75){
     int x, y, i;
 
     char mot[9]; //impossible de supprimer mot ??
-    char * coord1, * coord2;
+    char *coord1, *coord2;
     char repertoire[BUFSIZE];
 
     coord1 = (char *) malloc(4*sizeof(char));
     coord2 = (char *) malloc(4*sizeof(char));
 
-    if((rep = opendir(REP)) == NULL){
+    if((rep = opendir(REP_75)) == NULL){
         perror("Problème avec le répertoire\n");
     }
 
-    //boutton(ecran); //pour l'animation
 
     while((info_rep = readdir(rep)) != NULL){
 
-        strcpy(repertoire, REP); //on remet repertoire a 75m/
+        strcpy(repertoire, REP_75); //on remet repertoire a 75m/
 
         if(info_rep->d_type & DT_REG){
 
@@ -308,14 +341,10 @@ void * fichier_dif(data_map * data_75){
                 coord2[i] = info_rep->d_name[25+i];
             }
 
-            //printf("coord1 : %s, coord2 : %s \n", coord1, coord2);
-
             x = atoi(coord1) - 75;
             y = atoi(coord2) - 6150;
 
             ajout_tab(fichier, 75);
-
-            //affiche_tab(data_75->pt_tab); //pour checker
 
             remplirFrance(data_75->pt_tab, tempo_75, data_75->pt_surface, x, y, 75); //rajouter a remplir france le fait que l'on change de fichier, et donc qu'il faut blitter les pixels en fct
             //140 000 000 points a blitter
@@ -325,20 +354,102 @@ void * fichier_dif(data_map * data_75){
         }
     }
 
-    printf("ok\n");
-    data_75->pt_zoom = zoomSurface(data_75->pt_surface, 0.780, 0.727, 1); //on dezoom pour l'afficher en 859*800
-    //SDL_BlitSurface(data_75->pt_zoom, NULL, ecran, NULL);
-   // SDL_Flip(ecran);
-
-    //return surzoom;
+    printf("75 pret !\n");
+    data_75->pt_zoom = zoomSurface(data_75->pt_surface, DEZOOM_X_75, DEZOOM_Y_75, 1); //on dezoom pour l'afficher en 859*800
 
     free(coord1);
     free(coord2);
+    SDL_FreeSurface(tempo_75);
     closedir(rep);
 
     data_75->done = 1;
 
-    boutton(ecran); //fin de l'animation
+    boutton(); //fin de l'animation
+
+    pthread_exit(NULL);
+
+
+}
+
+void * fichier_5(void){
+
+    data_5->done = 0;
+
+    FILE * fichier = NULL;
+    DIR * rep = NULL;
+
+    SDL_Surface *tempo_5 = NULL; //va stocker les carré de 1000*1000
+    tempo_5 = SDL_CreateRGBSurface(SDL_HWSURFACE, COLONNES_5, LIGNES_5, 32, 0, 0, 0, 0); // pour les carrés de 1000*1000 en 75m
+
+    struct dirent * info_rep = NULL;
+
+    int x, y, i;
+
+    char mot[9]; //impossible de supprimer mot ??
+    char *coord1, *coord2;
+    char repertoire[BUFSIZE];
+
+    coord1 = (char *) malloc(4*sizeof(char));
+    coord2 = (char *) malloc(4*sizeof(char));
+
+    if((rep = opendir(REP_5)) == NULL){
+        perror("Problème avec le répertoire\n");
+    }
+
+
+    while((info_rep = readdir(rep)) != NULL){
+
+        strcpy(repertoire, REP_5); //on remet repertoire a 75m/
+
+        if(info_rep->d_type & DT_REG){
+
+            printf("%s\n", info_rep->d_name);
+
+            if ((fichier = fopen(strcat(repertoire, info_rep->d_name), "r")) == NULL) { // ouverture du fichier en mode lecture seule
+                perror("Erreur a l'ouverture du fichier");
+                exit(EXIT_FAILURE);
+            }
+
+            i = 6;
+            while (i--)
+                fgets(repertoire, BUFSIZE, fichier); //nous place a la ligne des données
+
+            for(i=0; i<4; i++){
+                coord1[i] = info_rep->d_name[15+i];
+            }
+
+            for(i=0; i<4; i++){
+                coord2[i] = info_rep->d_name[20+i];
+            }
+
+            x = atoi(coord1) - 200;
+            y = atoi(coord2) - 6790;
+
+            ajout_tab(fichier, 5);
+
+            remplirFrance(data_5->pt_tab, tempo_5, data_5->pt_surface, x, y, 5); //rajouter a remplir france le fait que l'on change de fichier, et donc qu'il faut blitter les pixels en fct
+            //140 000 000 points a blitter
+
+            fclose(fichier); //on ferme le fichier ouvert
+
+            SDL_BlitSurface(data_5->pt_surface, NULL, ecran, NULL);
+            SDL_Flip(ecran);
+
+
+        }
+    }
+
+    printf("5 pret !\n");
+    data_5->pt_zoom = zoomSurface(data_5->pt_surface, DEZOOM_X_75, DEZOOM_Y_75, 1); //on dezoom pour l'afficher en 859*800
+
+    free(coord1);
+    free(coord2);
+    SDL_FreeSurface(tempo_5);
+    closedir(rep);
+
+    data_5->done = 1;
+
+    boutton(); //fin de l'animation
 
     pthread_exit(NULL);
 
@@ -347,27 +458,20 @@ void * fichier_dif(data_map * data_75){
 
 void sdl_ini(){
 
-//CREATION SURFACE
-
-    /*SDL_Surface *surface_1000 = NULL; // Va accueillir la France pour 1000m
-    SDL_Surface * zoom_1000 = NULL; //france en 1000m mais dezoomé
-
-    SDL_Surface * surface_75 = NULL; //va stocker la france en 75m
-    SDL_Surface * zoom_75 = NULL; //france en 75m mais dezoomé
-    */
-
     SDL_Rect TBoutton; //on stock la taille des boutons
+    pthread_t pid1; //pid du thread
+    pthread_t pid2;
+
 
 //AFFECTATION SURFACE POINTEURS DONNEES CARTES
 
     data_1000->pt_surface = NULL;
-    data_1000->pt_zoom = NULL;
 
     data_75->pt_surface = NULL;
     data_75->pt_zoom = NULL;
 
-    pthread_t pid; //pid du thread
-
+    data_5->pt_surface = NULL;
+    data_5->pt_zoom = NULL;
 
 //CREATION ECRAN
 
@@ -387,35 +491,51 @@ void sdl_ini(){
 
 //REMPLISSAGE DE LA FRANCE
 
-    super_propa(data_1000->pt_tab, 0, 0, LIGNES-1 , COLONNES-1, 0, 1); // On initialise tab pour que estInonde = 1 pour la vraie mer //problème avec l'inondation 75m après non?
+    super_propa(data_1000->pt_tab, 0, 0, LIGNES-1 , COLONNES-1, 0, 1); // On initialise tab pour que estInonde = 1 pour la vraie mer
 
     data_1000->pt_surface = SDL_CreateRGBSurface(SDL_HWSURFACE, COLONNES, LIGNES, 32, 0, 0, 0, 0); //pour la france en 1000m
-    data_75->pt_surface = SDL_CreateRGBSurface(SDL_HWSURFACE, 1100, 1100, 32, 0, 0, 0, 0); // pour la france en 75m
+    data_75->pt_surface = SDL_CreateRGBSurface(SDL_HWSURFACE, 1300, 1300, 32, 0, 0, 0, 0); // pour la france en 75m
+    data_5->pt_surface = SDL_CreateRGBSurface(SDL_HWSURFACE, 1300, 1300, 32, 0, 0, 0, 0); // pour la france en 75m
 
-    remplirFrance(data_1000->pt_tab, data_1000->pt_surface, ecran, 0, 0, 1000); //on crée la surface pour 1000m pour afficher la france en 1000m en premier
+    //remplirFrance(data_1000->pt_tab, data_1000->pt_surface, ecran, 0, 0, 1000); //on crée la surface pour 1000m pour afficher la france en 1000m en premier
 
 //CREATION THREAD
 
-    if(0 != pthread_create(&pid, NULL, fichier_dif, data_75)){
+    /*if(pthread_create(&pid1, NULL, &fichier_75, NULL) != 0){
+        perror("Probleme avec pthread_create");
+        exit(EXIT_FAILURE);
+    }*/
+
+    if(pthread_create(&pid2, NULL, &fichier_5, NULL) != 0){
         perror("Probleme avec pthread_create");
         exit(EXIT_FAILURE);
     }
 
     //fichier_dif(tab, surface_75, ecran); //on crée la surface pour 75m
 
-    TBoutton = boutton(ecran); //on crée l'affichage
+    TBoutton = boutton(); //on crée l'affichage
 
     SDL_Flip(ecran); // Mise à jour de l'écran
     pause(TBoutton); // Mise en pause du programme
 
-    while(data_75->done =! 1) //on check le thread pour voir si celui-la est finis, sinon on interromp pas le prog, car sinon zombi?
-        pthread_join(pid, NULL);
+   /* if(data_75->done == 0)
+        pthread_cancel(pid1);
+    else
+        pthread_join(pid1, NULL); //on check le thread pour voir si celui-la est finis, sinon on interromp pas le prog, car sinon zombi?
+    */
+
+    if(data_5->done == 0)
+        pthread_cancel(pid2);
+    else
+        pthread_join(pid2, NULL);
 
 //LIBERATION
     SDL_FreeSurface(data_75->pt_zoom);
-    SDL_FreeSurface(data_1000->pt_zoom);
     SDL_FreeSurface(data_75->pt_surface);
+    SDL_FreeSurface(data_5->pt_zoom);
+    SDL_FreeSurface(data_5->pt_surface);
     SDL_FreeSurface(data_1000->pt_surface);
     SDL_FreeSurface(ecran);
+
     SDL_Quit(); // Arrêt de la SDL
 }

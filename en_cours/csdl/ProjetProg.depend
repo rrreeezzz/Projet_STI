@@ -42,10 +42,10 @@
 	<stdlib.h>
 	"module.h"
 
-1450956119 /home/fabien/Documents/test/csdl/module.h
+1452181542 /home/fabien/Documents/test/csdl/module.h
 	<SDL/SDL.h>
 
-1450960338 /home/fabien/Documents/test/csdl/partie2.h
+1452178166 /home/fabien/Documents/test/csdl/partie2.h
 	"module.h"
 	<SDL/SDL_rotozoom.h>
 	<SDL/SDL_ttf.h>
@@ -54,11 +54,12 @@
 	<errno.h>
 	<pthread.h>
 
-1450895401 source:/home/fabien/Documents/test/csdl/partie1.c
+1452182745 source:/home/fabien/Documents/test/csdl/partie1.c
 	"partie1.h"
 
-1450960345 source:/home/fabien/Documents/test/csdl/partie2.c
+1452184293 source:/home/fabien/Documents/test/csdl/partie2.c
 	"partie2.h"
+	"partie1.h"
 	"propagation.h"
 
 1449511024 source:/home/fabien/Documents/projet_sti/Projet/innondation.c

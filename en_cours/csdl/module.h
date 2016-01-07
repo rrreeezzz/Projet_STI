@@ -5,10 +5,17 @@
 #define COLONNES 1161 // nb de colonnes
 #define LIGNES_75 1000 // nb de lignes
 #define COLONNES_75 1000 // nb de colonnes
+#define LIGNES_5 1000 // nb de lignes
+#define COLONNES_5 1000 // nb de colonnes
 
-#define DEZOOM_X 859
-#define DEZOOM_Y 800    // 859x800 environ
-#define REP "/media/fabien/Data/75m/"
+#define DEZOOM_X_1000 0.740055504 //800/1081
+#define DEZOOM_Y_1000 0.740750741   // 860/1161
+
+#define DEZOOM_X_75 0.715384615 //800/1081
+#define DEZOOM_Y_75 0.661538462  // 860/1161
+
+#define REP_75 "/media/fabien/Data/75m/"
+#define REP_5 "/media/fabien/Data/5m/"
 #define BUFSIZE 50
 
 #include <SDL/SDL.h>
@@ -27,5 +34,6 @@ typedef struct { //structure qui contient les cartes
 
 data_map * data_75;
 data_map * data_1000;
+data_map * data_5;
 
 #endif // H_MODULE

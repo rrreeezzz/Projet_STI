@@ -6,6 +6,7 @@ void chargement() {
 
     data_75 = (data_map *) malloc(sizeof(data_map));
     data_1000 = (data_map *) malloc(sizeof(data_map));
+    data_5 = (data_map *) malloc(sizeof(data_map));
 
 //ALLOCATION MEMOIRE & OUVERTURE DU FICHIER
 
@@ -76,6 +77,19 @@ void alloue() {
             exit(EXIT_FAILURE);
         }
     }
+
+    if ((data_5->pt_tab = (Point**) malloc(LIGNES_75 * sizeof(Point*))) == NULL) { // allocation mémoire de tab[x]: tableau de x pointeurs sur Point
+        printf("\aErreur d'allocation mémoire dans alloue.\n");  // si il y a eu une erreur on est rentré dans le if
+        exit(EXIT_FAILURE);
+    }
+
+    for (i=0; i<LIGNES_75; i++) {
+        if ((data_5->pt_tab[i] = (Point*) malloc(COLONNES_75 * sizeof(Point))) == NULL) { // chaque pointeur pointe sur un tableau de y Point
+            printf("\aErreur d'allocation mémoire dans le for de alloue.\n");  // si il y a une erreur on rentre dans le if
+            libere();
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 int ajout_tab(FILE * file, int type) {
@@ -107,6 +121,21 @@ int ajout_tab(FILE * file, int type) {
                         return 0; // il y a eu une erreur
 
                     data_75->pt_tab[i][j].estInonde = 0; // initialisation
+
+                }
+            }
+
+            break;
+
+        case 5:
+
+            for (i=0; i<LIGNES_5; i++) {
+                for (j=0; j<COLONNES_5; j++) {
+
+                    if(fscanf(file, "%lf", &data_5->pt_tab[i][j].metre) != 1)
+                        return 0; // il y a eu une erreur
+
+                    data_5->pt_tab[i][j].estInonde = 0; // initialisation
 
                 }
             }
