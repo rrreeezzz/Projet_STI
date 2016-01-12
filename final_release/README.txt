@@ -4,9 +4,9 @@ Développeurs : Génaux Luc, Pfister Thomas, Efstathiou, Malbois Fabien
 //////////A LIRE AVANT UTILISATION\\\\\\\\\\
 
 Librairies utilisées:
-SDL 1.2
-SDL_gfx
-SDL_ttf
+libsdl1.2-dev
+libsdl-gfx1.2-dev
+libsdl-ttf2.0-dev
 
 Avant utilisation, veuillez changer les valeurs des variables REP_75 et REP_5 dans le fichier module.h en mettant
 le chemin d'accès aux fichiers .asc des résolutions 75m et 5m. De plus, veuillez vérifier que la corse est dans
