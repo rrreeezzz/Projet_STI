@@ -442,7 +442,6 @@ void * fichier_75(void *v){
 
     int x, y, i;
 
-    char mot[9]; //impossible de supprimer mot ??
     char *coord1, *coord2;
     char repertoire[BUFSIZE];
 
