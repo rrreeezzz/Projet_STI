@@ -14,4 +14,6 @@ les fichiers 75m.
 
 Le fichier .asc de la récolution 1000m doit être dans le dossier du programme.
 
+Exemple de compilation : gcc -o prog main.c partie1.c partie2.c propagation.c bouton.c -lSDL -lSDLmain -lSDL_ttf -lSDL_gfx -lpthread
+
 //////////\\\\\\\\\\
