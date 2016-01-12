@@ -189,7 +189,6 @@ void cadre(int *tab) {
 
 
 void submersion_haut(int x, int y, int h, int inonde) {
-    int res = 0;
     int i,j;
     for (i=x;i<1000;i++) {
         for(j=y;j<600;j++) {
