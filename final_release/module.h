@@ -17,8 +17,8 @@
 #define DEZOOM_X_5 0.614285714
 #define DEZOOM_Y_5 0.614285714 //860/1400
 
-#define REP_75 "/data/data_75"
-#define REP_5 "/data/data_5"
+#define REP_75 "data/data_75/"
+#define REP_5 "data/data_5/"
 #define BUFSIZE 50
 
 #include <SDL/SDL.h>
